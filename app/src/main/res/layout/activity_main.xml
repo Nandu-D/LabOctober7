@@ -7,22 +7,32 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/tv_score1"
+        android:id="@+id/tv_score1Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@id/btn_score1Plus"
+        android:text="@string/score_1"
+        app:layout_constraintBottom_toTopOf="@id/tv_score1"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread" />
 
+    <TextView
+        android:id="@+id/tv_score1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_score1Text"
+        app:layout_constraintBottom_toTopOf="@id/btn_score1Plus"/>
+
     <Button
         android:id="@+id/btn_score1Plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+"
+        android:text="@string/plus"
         app:layout_constraintBottom_toTopOf="@id/center_horizontal_guideline"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -33,7 +43,7 @@
         android:id="@+id/btn_score1Minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="-"
+        android:text="@string/minus"
         app:layout_constraintBottom_toTopOf="@id/center_horizontal_guideline"
         app:layout_constraintLeft_toRightOf="@id/btn_score1Plus"
         app:layout_constraintRight_toRightOf="parent"
@@ -47,22 +57,32 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <TextView
-        android:id="@+id/tv_score2"
+        android:id="@+id/tv_score2Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/score_2"
         app:layout_constraintBottom_toTopOf="@id/btn_score2Plus"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/tv_score1"
+        app:layout_constraintLeft_toRightOf="@+id/tv_score1Text"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/center_horizontal_guideline"
         app:layout_constraintVertical_chainStyle="spread" />
+
+    <TextView
+        android:id="@+id/tv_score2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_score2Text"
+        app:layout_constraintBottom_toTopOf="@id/btn_score2Plus"/>
 
     <Button
         android:id="@+id/btn_score2Plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+"
+        android:text="@string/plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -73,7 +93,7 @@
         android:id="@+id/btn_score2Minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="-"
+        android:text="@string/minus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/btn_score2Plus"
         app:layout_constraintRight_toRightOf="parent"

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LabOctober7</string>
+    <string name="score_2">Score 2</string>
+    <string name="score_1">Score 1</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
 </resources>
