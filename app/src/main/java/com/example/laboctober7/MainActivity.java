@@ -2,6 +2,8 @@ package com.example.laboctober7;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +12,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    private final String SCORE1STRING = "1";
+    private final String SCORE2STRING = "2";
+    private final String MYPREFERENCE = "mypreference";
+
     private int incrementValue = 1;
 
     private int score1 = 0;
@@ -20,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     RadioGroup incrementSelector;
     RadioButton incrementBy1, incrementBy5, incrementBy10;
+
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
         incrementBy1 = findViewById(R.id.radio_1);
         incrementBy5 = findViewById(R.id.radio_5);
         incrementBy10 = findViewById(R.id.radio_10);
+
+        sharedpreferences = getSharedPreferences(MYPREFERENCE,
+                Context.MODE_PRIVATE);
+        if (sharedpreferences.contains(SCORE1STRING)) {
+            score1_tv.setText(Integer.toString(sharedpreferences.getInt(SCORE1STRING, 0)));
+            score1 = sharedpreferences.getInt(SCORE1STRING, 0);
+        }
+        if (sharedpreferences.contains(SCORE2STRING)) {
+            score2_tv.setText(Integer.toString(sharedpreferences.getInt(SCORE2STRING, 0)));
+            score2 = sharedpreferences.getInt(SCORE2STRING, 0);
+        }
 
         incrementSelector.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -63,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     score1 = score1 - incrementValue;
 
                     score1_tv.setText(Integer.toString(score1));
+                    updateInMemory(SCORE1STRING);
                 }
             }
         });
@@ -70,19 +90,20 @@ public class MainActivity extends AppCompatActivity {
         score1_plus_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                score1= score1 + incrementValue;
+                score1 = score1 + incrementValue;
 
-                    score1_tv.setText(Integer.toString(score1));
+                score1_tv.setText(Integer.toString(score1));
+                updateInMemory(SCORE1STRING);
             }
         });
 
         score2_plus_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    score2 = score2 + incrementValue;
+                score2 = score2 + incrementValue;
 
-                    score2_tv.setText(Integer.toString(score2));
-
+                score2_tv.setText(Integer.toString(score2));
+                updateInMemory(SCORE2STRING);
             }
         });
 
@@ -93,11 +114,21 @@ public class MainActivity extends AppCompatActivity {
                     score2 = score2 - incrementValue;
 
                     score2_tv.setText(Integer.toString(score2));
+                    updateInMemory(SCORE2STRING);
                 }
             }
         });
     }
 
+    void updateInMemory(String scoreNumber) {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        if (scoreNumber.equals(SCORE1STRING)) {
+            editor.putInt(SCORE1STRING, score1);
+        } else {
+            editor.putInt(SCORE2STRING, score2);
+        }
+        editor.apply();
+    }
 
 }
 
