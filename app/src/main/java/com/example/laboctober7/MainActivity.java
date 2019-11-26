@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -125,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "This is lab 8", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.settings:
-
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
