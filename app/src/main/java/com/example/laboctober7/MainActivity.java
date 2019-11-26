@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     private final String SCORE1STRING = "1";
     private final String SCORE2STRING = "2";
+    private final String RADIOVALUE = "RADIOVALUE";
     private final String MYPREFERENCE = "mypreference";
 
     private int incrementValue = 1;
@@ -47,17 +48,6 @@ public class MainActivity extends AppCompatActivity {
         incrementBy5 = findViewById(R.id.radio_5);
         incrementBy10 = findViewById(R.id.radio_10);
 
-        sharedpreferences = getSharedPreferences(MYPREFERENCE,
-                Context.MODE_PRIVATE);
-        if (sharedpreferences.contains(SCORE1STRING)) {
-            score1_tv.setText(Integer.toString(sharedpreferences.getInt(SCORE1STRING, 0)));
-            score1 = sharedpreferences.getInt(SCORE1STRING, 0);
-        }
-        if (sharedpreferences.contains(SCORE2STRING)) {
-            score2_tv.setText(Integer.toString(sharedpreferences.getInt(SCORE2STRING, 0)));
-            score2 = sharedpreferences.getInt(SCORE2STRING, 0);
-        }
-
         incrementSelector.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -82,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                     score1 = score1 - incrementValue;
 
                     score1_tv.setText(Integer.toString(score1));
-                    updateInMemory(SCORE1STRING);
                 }
             }
         });
@@ -93,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 score1 = score1 + incrementValue;
 
                 score1_tv.setText(Integer.toString(score1));
-                updateInMemory(SCORE1STRING);
             }
         });
 
@@ -103,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 score2 = score2 + incrementValue;
 
                 score2_tv.setText(Integer.toString(score2));
-                updateInMemory(SCORE2STRING);
             }
         });
 
@@ -114,21 +101,51 @@ public class MainActivity extends AppCompatActivity {
                     score2 = score2 - incrementValue;
 
                     score2_tv.setText(Integer.toString(score2));
-                    updateInMemory(SCORE2STRING);
                 }
             }
         });
     }
 
-    void updateInMemory(String scoreNumber) {
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        if (scoreNumber.equals(SCORE1STRING)) {
-            editor.putInt(SCORE1STRING, score1);
-        } else {
-            editor.putInt(SCORE2STRING, score2);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sharedpreferences = getSharedPreferences(MYPREFERENCE,
+                Context.MODE_PRIVATE);
+        if (sharedpreferences.contains(SCORE1STRING)) {
+            score1_tv.setText(Integer.toString(sharedpreferences.getInt(SCORE1STRING, 0)));
+            score1 = sharedpreferences.getInt(SCORE1STRING, 0);
         }
-        editor.apply();
+        if (sharedpreferences.contains(SCORE2STRING)) {
+            score2_tv.setText(Integer.toString(sharedpreferences.getInt(SCORE2STRING, 0)));
+            score2 = sharedpreferences.getInt(SCORE2STRING, 0);
+        }
+        if (sharedpreferences.contains(RADIOVALUE)) {
+            RadioButton radioButton;
+            switch (sharedpreferences.getInt(RADIOVALUE, 1)) {
+                case 1:
+                    radioButton = findViewById(R.id.radio_1);
+                    radioButton.setChecked(true);
+                    break;
+                case 5:
+                    radioButton = findViewById(R.id.radio_5);
+                    radioButton.setChecked(true);
+                    break;
+                case 10:
+                    radioButton = findViewById(R.id.radio_10);
+                    radioButton.setChecked(true);
+                    break;
+            }
+        }
     }
 
+    @Override
+    protected void onPause() {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt(SCORE1STRING, score1);
+        editor.putInt(SCORE2STRING, score2);
+        editor.putInt(RADIOVALUE, incrementValue);
+        editor.apply();
+        super.onPause();
+    }
 }
 
