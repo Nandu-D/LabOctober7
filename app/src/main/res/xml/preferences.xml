@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="colorPreference"
+        android:title="Basic colours"
+        android:summary="Change the colours to normal android colours"
+        android:defaultValue="false" />
+</PreferenceScreen>
